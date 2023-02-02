@@ -1,25 +1,14 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
+from cleaner import clean_corpus
 
 chatbot = ChatBot("Chatpot")
 
+CORPUS_FILE = "chat.txt"
+
 trainer = ListTrainer(chatbot)
-trainer.train([
-    "Hi",
-    "Welcome, friend 🤖",
-])
-trainer.train([
-    "Are you from earth?",
-    "We came from outer space"
-])
-trainer.train([
-    "Who won the super bowl in February 2022?",
-    "The Los Angeles Rams"
-])
-trainer.train([
-    "Who won the 2022 world cup?",
-    "Argentina, led by Lionel Messi"
-])
+cleaned_corpus = clean_corpus(CORPUS_FILE)
+trainer.train(cleaned_corpus)
 
 exit_conditions = (":q", "quit", "exit")
 while True:
