@@ -1,35 +1,30 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
-bot = ChatBot(name='PaBot', read_only=True, 
-logic_adapters=['chatterbot.logic.MathematicalEvaluation', 'chatterbot.logic.BestMatch'])
+chatbot = ChatBot("Chatpot")
 
-small_talk = ['hi there!',
-              'hi!',
-              'how do you do?',
-              'how are you?',
-              'i\'m cool.',
-              'fine, you?',
-              'always cool',
-              'fantastic big dawg',
-              'i\'m ok',
-              'glad to hear that',
-              'i\'m fine',
-              'glad to hear that',
-              'i feel awesome',
-              'excellent, glad to hear that',
-              'not so good',
-              'sorry to hear that',
-              'what\'s your name?',
-              'i\'m pybot. ask me a math question, please.']
+trainer = ListTrainer(chatbot)
+trainer.train([
+    "Hi",
+    "Welcome, friend 🤖",
+])
+trainer.train([
+    "Are you from earth?",
+    "We came from outer space"
+])
+trainer.train([
+    "Who won the super bowl in February 2022?",
+    "The Los Angeles Rams"
+])
+trainer.train([
+    "Who won the 2022 world cup?",
+    "Argentina, led by Lionel Messi"
+])
 
-math_talk_1 = ['pythagorean theorem',
-             'a squared plus b squared equals c squared.']
-
-math_talk_2 = ['law of cosines',
-               'c**2 = a**2 + b**2 - 2 * a * b * cos(gamma)']
-
-list_trainer = ListTrainer(bot)
-
-for item in (small_talk, math_talk_1, math_talk_2):
-    list_trainer.train(item)
+exit_conditions = (":q", "quit", "exit")
+while True:
+    query = input("> ")
+    if query in exit_conditions:
+        break
+    else:
+        print(f"👽 {chatbot.get_response(query)}")
